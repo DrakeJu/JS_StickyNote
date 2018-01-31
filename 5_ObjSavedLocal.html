@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>localStorage keyValue saved as Object</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<style>
+		label{
+			width: 160px;
+			display: inline-block;
+			margin-bottom: 10px;
+		}
+		button{ padding: 5px 10px }
+	</style>
+</head>
+<body>
+
+	<textarea name="txt" id="txt" cols="30" rows="10"></textarea><br />
+	<label for="textcolor">change text color</label>	<!--color change-->
+	<input type="color" id="textcolor"/><br />
+	<label for="bgcolor">change bg color</label>
+	<input type="color" id="bgcolor"/><br />
+
+	<button id='set_color'>set color</button>	<!-- color set button -->
+	<button id='get_color'>get Color</button>	<!-- color get button -->
+
+	<script>
+    //typing txt in the textarea
+		$('#txt').val('글상자 영역의 색상값을 저장합니다.');
+
+    //apply font color
+		$('#textcolor').change(function(){
+		  var color = $(this).val();
+		  $('#txt').css('color', color);
+		});
+
+    //apply backgroundColor
+		$('#bgcolor').change(function(){
+		  var color = $(this).val();
+		  $('#txt').css('backgroundColor', color);
+		});
+
+    //save bgcolor and fontcolor at localStorage
+		$('#set_color').click(function(){
+		  var bgcolor = $('#bgcolor').val();
+		  var textcolor = $('#textcolor').val();
+		  var obj = {
+		  	bgcolor : bgcolor,
+		  	textcolor : textcolor
+		  }
+		  // color Object set
+		  localStorage.setItem('color', JSON.stringify(obj));
+		});
+
+		// color Object get
+		$('#get_color').click(function(){
+		  var color = JSON.parse(localStorage.getItem('color'));
+
+		  $('#txt').css({
+		  	'backgroundColor' : color.bgcolor,
+		  	'color' : color.textcolor
+		  });
+		  console.log(color);
+		});
+
+	</script>
+</body>
+</html>

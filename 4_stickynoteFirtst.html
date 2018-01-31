@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang = "en">
+  <head>
+    <meta charset="utf-8">
+    <title>set_getColor</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  	<style>
+  		label{
+  			width: 160px;
+  			display: inline-block;
+  			margin-bottom: 10px;
+  		}
+  		button{ padding: 5px 10px }
+  	</style>
+  </head>
+  <body>
+    <textarea name="txt" id="txt" cols="30" rows="10"></textarea><br />
+    <label for="textcolor">change txt color</label> <!--color change-->
+    <input type="color" id="textcolor"/><br />
+  	<label for="bgcolor">change bg color</label>
+  	<input type="color" id="bgcolor"/><br />
+
+    <button id = "set_color">set color</button>
+    <button id = "get_color">get color</button>
+    <script>
+      //typing txt in the textarea
+      $('txt').val('save color val in textarea');
+
+      //apply font color
+      $('#textcolor').change(function(){
+        var color = $(this).val();
+        $('#textcolor').css('color',color);
+      });
+
+
+      //apply backgroundColor
+      $('#bgcolor').change(function () {
+        var color = $(this).val();
+        $('#txt').css('backgroundColor',color);
+      });
+
+      //save bgcolor and fontcolor at localStorage
+      $('#set_color').click(function(){
+        var bgcolor = localStorage.getItem('bgcolor');
+        var textcolor = localStorage.getItem('textcolor');
+        $('txt').css({
+          'backgroundColor' :bgcolor,
+          'color' : textcolor
+        });
+        console.log(bgcolor,'',textcolor);
+      });
+
+    </script>
+  </body>
+</html>
